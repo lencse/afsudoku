@@ -1,5 +1,5 @@
 import { Position, pos } from "./Position";
-import { ValidationState, RowValidatorIterator } from "./Validation";
+import { ValidationState, ValidatorIterator, RowValidatorIterator } from "./Validation";
 
 export class Sudoku {
 
@@ -30,13 +30,8 @@ export class Sudoku {
     }
 
     public isValid(): boolean {
-        let state = new ValidationState(pos(1, 1), []);
-        let iterator = new RowValidatorIterator(this);
-        while (state.getPosition().getColumn() != 0) {
-            if (state.getSeenValues().indexOf(this.val(state.getPosition())) != -1) {
-                return false;
-            }
-            state = iterator.iterate(state);
+        if (!this.validate(new RowValidatorIterator(this))) {
+            return false;
         }
         for (let col = 1; col <= Math.pow(this.n, 2); ++col) {
             let vals = [];
@@ -50,6 +45,17 @@ export class Sudoku {
                 }
                 vals.push(val);
             }
+        }
+        return true;
+    }
+
+    private validate(iterator: ValidatorIterator): boolean {
+        let state = new ValidationState(pos(1, 1), []);
+        while (state.getPosition().getColumn() != 0) {
+            if (state.getSeenValues().indexOf(this.val(state.getPosition())) != -1) {
+                return false;
+            }
+            state = iterator.iterate(state);
         }
         return true;
     }

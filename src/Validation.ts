@@ -21,15 +21,21 @@ export class ValidationState {
 
 }
 
-export class RowValidatorIterator {
+export abstract class ValidatorIterator {
 
-    private n: number;
-    private sudoku: Sudoku;
+    protected n: number;
+    protected sudoku: Sudoku;
 
     constructor (sudoku: Sudoku) {
         this.n = sudoku.getN();
         this.sudoku = sudoku;
     }
+
+    public abstract iterate(state: ValidationState): ValidationState;
+
+}
+
+export class RowValidatorIterator extends ValidatorIterator{
 
     public iterate(state: ValidationState): ValidationState {
         const p = state.getPosition();
