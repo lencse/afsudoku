@@ -20,7 +20,7 @@ export class InProgressValidationState implements ValidationState {
     }
 
     public isFinished(): boolean {
-        return this.position.getRow() == 0;
+        return false;
     }
 
     public getPosition(): Position {
@@ -29,6 +29,22 @@ export class InProgressValidationState implements ValidationState {
 
     public getSeenValues(): Array<number> {
         return this.seenValues;
+    }
+
+}
+
+class FinishedValidationState implements ValidationState {
+
+    public isFinished(): boolean {
+        return true;
+    }
+
+    public getPosition(): Position {
+        throw "Shouldn't be called";
+    }
+
+    public getSeenValues(): Array<number> {
+        throw "Shouldn't be called";
     }
 
 }
@@ -54,7 +70,7 @@ export class RowValidatorIterator extends ValidatorIterator{
     public iterate(state: ValidationState, val: number): ValidationState {
         const p = state.getPosition();
         if (p.getColumn() == Math.pow(this.n, 2) && p.getRow() == Math.pow(this.n, 2)) {
-            return new InProgressValidationState(pos(0, 0), []);
+            return new FinishedValidationState();
         }
         if (p.getColumn() == Math.pow(this.n, 2)) {
             return new InProgressValidationState(pos(p.getRow()+1, 1), []);
@@ -73,7 +89,7 @@ export class ColumnValidatorIterator extends ValidatorIterator{
     public iterate(state: ValidationState, val: number): ValidationState {
         const p = state.getPosition();
         if (p.getColumn() == Math.pow(this.n, 2) && p.getRow() == Math.pow(this.n, 2)) {
-            return new InProgressValidationState(pos(0, 0), []);
+            return new FinishedValidationState();
         }
         if (p.getRow() == Math.pow(this.n, 2)) {
             return new InProgressValidationState(pos(1, p.getColumn()+1), []);
@@ -92,7 +108,7 @@ export class SubgridValidatorIterator extends ValidatorIterator{
     public iterate(state: ValidationState, val: number): ValidationState {
         const p = state.getPosition();
         if (p.getColumn() == Math.pow(this.n, 2) && p.getRow() == Math.pow(this.n, 2)) {
-            return new InProgressValidationState(pos(0, 0), []);
+            return new FinishedValidationState();
         }
         if (p.getColumn() == Math.pow(this.n, 2) && p.getRow() % this.n == 0) {
             return new InProgressValidationState(pos(p.getRow()+1, 1), []);
