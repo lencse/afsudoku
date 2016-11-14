@@ -61,17 +61,21 @@ export abstract class ValidatorIterator {
         this.n = n;
     }
 
-    public abstract iterate(state: ValidationState, val: number): ValidationState;
+    public iterate(state: ValidationState, val: number): ValidationState {
+        if (state.getPosition().getColumn() == Math.pow(this.n, 2) && state.getPosition().getRow() == Math.pow(this.n, 2)) {
+            return new FinishedValidationState();
+        }
+        return this.stepForward(state, val);
+    }
+
+    protected abstract stepForward(state: ValidationState, val: number): ValidationState;
 
 }
 
 export class RowValidatorIterator extends ValidatorIterator{
 
-    public iterate(state: ValidationState, val: number): ValidationState {
+    protected stepForward(state: ValidationState, val: number): ValidationState {
         const p = state.getPosition();
-        if (p.getColumn() == Math.pow(this.n, 2) && p.getRow() == Math.pow(this.n, 2)) {
-            return new FinishedValidationState();
-        }
         if (p.getColumn() == Math.pow(this.n, 2)) {
             return new InProgressValidationState(pos(p.getRow()+1, 1), []);
         }
@@ -86,11 +90,8 @@ export class RowValidatorIterator extends ValidatorIterator{
 
 export class ColumnValidatorIterator extends ValidatorIterator{
 
-    public iterate(state: ValidationState, val: number): ValidationState {
+    protected stepForward(state: ValidationState, val: number): ValidationState {
         const p = state.getPosition();
-        if (p.getColumn() == Math.pow(this.n, 2) && p.getRow() == Math.pow(this.n, 2)) {
-            return new FinishedValidationState();
-        }
         if (p.getRow() == Math.pow(this.n, 2)) {
             return new InProgressValidationState(pos(1, p.getColumn()+1), []);
         }
@@ -105,11 +106,8 @@ export class ColumnValidatorIterator extends ValidatorIterator{
 
 export class SubgridValidatorIterator extends ValidatorIterator{
 
-    public iterate(state: ValidationState, val: number): ValidationState {
+    protected stepForward(state: ValidationState, val: number): ValidationState {
         const p = state.getPosition();
-        if (p.getColumn() == Math.pow(this.n, 2) && p.getRow() == Math.pow(this.n, 2)) {
-            return new FinishedValidationState();
-        }
         if (p.getColumn() == Math.pow(this.n, 2) && p.getRow() % this.n == 0) {
             return new InProgressValidationState(pos(p.getRow()+1, 1), []);
         }
