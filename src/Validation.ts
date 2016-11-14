@@ -54,3 +54,23 @@ export class RowValidatorIterator extends ValidatorIterator{
     }
 
 }
+
+export class ColumnValidatorIterator extends ValidatorIterator{
+
+    public iterate(state: ValidationState): ValidationState {
+        const p = state.getPosition();
+        if (p.getColumn() == Math.pow(this.n, 2) && p.getRow() == Math.pow(this.n, 2)) {
+            return new ValidationState(pos(0, 0), []);
+        }
+        if (p.getRow() == Math.pow(this.n, 2)) {
+            return new ValidationState(pos(1, p.getColumn()+1), []);
+        }
+        let newValues = state.getSeenValues();
+        const val = this.sudoku.val(p);
+        if (val != 0) {
+            newValues.push(val);
+        }
+        return new ValidationState(pos(p.getRow()+1, p.getColumn()), newValues);
+    }
+
+}

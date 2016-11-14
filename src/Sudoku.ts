@@ -1,5 +1,5 @@
 import { Position, pos } from "./Position";
-import { ValidationState, ValidatorIterator, RowValidatorIterator } from "./Validation";
+import { ValidationState, ValidatorIterator, RowValidatorIterator, ColumnValidatorIterator } from "./Validation";
 
 export class Sudoku {
 
@@ -30,23 +30,8 @@ export class Sudoku {
     }
 
     public isValid(): boolean {
-        if (!this.validate(new RowValidatorIterator(this))) {
-            return false;
-        }
-        for (let col = 1; col <= Math.pow(this.n, 2); ++col) {
-            let vals = [];
-            for (let row = 1; row <= Math.pow(this.n, 2); ++row) {
-                const val = this.val(pos(row, col)) 
-                if (val == 0) {
-                    continue;
-                }
-                if (vals.indexOf(val) != -1) {
-                    return false;
-                }
-                vals.push(val);
-            }
-        }
-        return true;
+        return this.validate(new RowValidatorIterator(this))
+            && this.validate(new ColumnValidatorIterator(this));
     }
 
     private validate(iterator: ValidatorIterator): boolean {
