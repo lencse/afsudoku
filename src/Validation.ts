@@ -24,20 +24,18 @@ export class ValidationState {
 export abstract class ValidatorIterator {
 
     protected n: number;
-    protected sudoku: Sudoku;
 
-    constructor (sudoku: Sudoku) {
-        this.n = sudoku.getN();
-        this.sudoku = sudoku;
+    constructor (n: number) {
+        this.n = n;
     }
 
-    public abstract iterate(state: ValidationState): ValidationState;
+    public abstract iterate(state: ValidationState, val: number): ValidationState;
 
 }
 
 export class RowValidatorIterator extends ValidatorIterator{
 
-    public iterate(state: ValidationState): ValidationState {
+    public iterate(state: ValidationState, val: number): ValidationState {
         const p = state.getPosition();
         if (p.getColumn() == Math.pow(this.n, 2) && p.getRow() == Math.pow(this.n, 2)) {
             return new ValidationState(pos(0, 0), []);
@@ -46,7 +44,6 @@ export class RowValidatorIterator extends ValidatorIterator{
             return new ValidationState(pos(p.getRow()+1, 1), []);
         }
         let newValues = state.getSeenValues();
-        const val = this.sudoku.val(p);
         if (val != 0) {
             newValues.push(val);
         }
@@ -57,7 +54,7 @@ export class RowValidatorIterator extends ValidatorIterator{
 
 export class ColumnValidatorIterator extends ValidatorIterator{
 
-    public iterate(state: ValidationState): ValidationState {
+    public iterate(state: ValidationState, val: number): ValidationState {
         const p = state.getPosition();
         if (p.getColumn() == Math.pow(this.n, 2) && p.getRow() == Math.pow(this.n, 2)) {
             return new ValidationState(pos(0, 0), []);
@@ -66,7 +63,6 @@ export class ColumnValidatorIterator extends ValidatorIterator{
             return new ValidationState(pos(1, p.getColumn()+1), []);
         }
         let newValues = state.getSeenValues();
-        const val = this.sudoku.val(p);
         if (val != 0) {
             newValues.push(val);
         }
@@ -77,7 +73,7 @@ export class ColumnValidatorIterator extends ValidatorIterator{
 
 export class SubgridValidatorIterator extends ValidatorIterator{
 
-    public iterate(state: ValidationState): ValidationState {
+    public iterate(state: ValidationState, val: number): ValidationState {
         const p = state.getPosition();
         if (p.getColumn() == Math.pow(this.n, 2) && p.getRow() == Math.pow(this.n, 2)) {
             return new ValidationState(pos(0, 0), []);
@@ -89,7 +85,6 @@ export class SubgridValidatorIterator extends ValidatorIterator{
             return new ValidationState(pos(p.getRow()-this.n+1, p.getColumn()+1), []);
         }
         let newValues = state.getSeenValues();
-        const val = this.sudoku.val(p);
         if (val != 0) {
             newValues.push(val);
         }

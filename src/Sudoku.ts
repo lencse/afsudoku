@@ -13,10 +13,6 @@ export class Sudoku {
         }
     }
 
-    public getN(): number {
-        return this.n;
-    }
-
     public put(position: Position, value: number) {
         this.cells[this.transformPositionToIndex(position)] = value;
     }
@@ -30,9 +26,9 @@ export class Sudoku {
     }
 
     public isValid(): boolean {
-        return this.validate(new RowValidatorIterator(this))
-            && this.validate(new ColumnValidatorIterator(this))
-            && this.validate(new SubgridValidatorIterator(this));
+        return this.validate(new RowValidatorIterator(this.n))
+            && this.validate(new ColumnValidatorIterator(this.n))
+            && this.validate(new SubgridValidatorIterator(this.n));
     }
 
     private validate(iterator: ValidatorIterator): boolean {
@@ -41,7 +37,7 @@ export class Sudoku {
             if (state.getSeenValues().indexOf(this.val(state.getPosition())) != -1) {
                 return false;
             }
-            state = iterator.iterate(state);
+            state = iterator.iterate(state, this.val(state.getPosition()));
         }
         return true;
     }
