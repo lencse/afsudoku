@@ -1,7 +1,15 @@
 import { Sudoku } from "./Sudoku";
 import { Position, pos } from "./Position";
 
-export class ValidationState {
+export interface ValidationState {
+
+    isFinished(): boolean;
+    getPosition(): Position;
+    getSeenValues(): Array<number>;
+
+}
+
+export class InProgressValidationState implements ValidationState {
 
     private position: Position;
     private seenValues: Array<number>;
@@ -9,6 +17,10 @@ export class ValidationState {
     constructor (position: Position, seenValues: Array<number>) {
         this.position = position;
         this.seenValues = seenValues;
+    }
+
+    public isFinished(): boolean {
+        return this.position.getRow() == 0;
     }
 
     public getPosition(): Position {
@@ -19,6 +31,10 @@ export class ValidationState {
         return this.seenValues;
     }
 
+}
+
+export function startValidationState(): ValidationState {
+    return new InProgressValidationState(pos(1, 1), []);
 }
 
 export abstract class ValidatorIterator {
@@ -38,16 +54,16 @@ export class RowValidatorIterator extends ValidatorIterator{
     public iterate(state: ValidationState, val: number): ValidationState {
         const p = state.getPosition();
         if (p.getColumn() == Math.pow(this.n, 2) && p.getRow() == Math.pow(this.n, 2)) {
-            return new ValidationState(pos(0, 0), []);
+            return new InProgressValidationState(pos(0, 0), []);
         }
         if (p.getColumn() == Math.pow(this.n, 2)) {
-            return new ValidationState(pos(p.getRow()+1, 1), []);
+            return new InProgressValidationState(pos(p.getRow()+1, 1), []);
         }
         let newValues = state.getSeenValues();
         if (val != 0) {
             newValues.push(val);
         }
-        return new ValidationState(pos(p.getRow(), p.getColumn()+1), newValues);
+        return new InProgressValidationState(pos(p.getRow(), p.getColumn()+1), newValues);
     }
 
 }
@@ -57,16 +73,16 @@ export class ColumnValidatorIterator extends ValidatorIterator{
     public iterate(state: ValidationState, val: number): ValidationState {
         const p = state.getPosition();
         if (p.getColumn() == Math.pow(this.n, 2) && p.getRow() == Math.pow(this.n, 2)) {
-            return new ValidationState(pos(0, 0), []);
+            return new InProgressValidationState(pos(0, 0), []);
         }
         if (p.getRow() == Math.pow(this.n, 2)) {
-            return new ValidationState(pos(1, p.getColumn()+1), []);
+            return new InProgressValidationState(pos(1, p.getColumn()+1), []);
         }
         let newValues = state.getSeenValues();
         if (val != 0) {
             newValues.push(val);
         }
-        return new ValidationState(pos(p.getRow()+1, p.getColumn()), newValues);
+        return new InProgressValidationState(pos(p.getRow()+1, p.getColumn()), newValues);
     }
 
 }
@@ -76,22 +92,22 @@ export class SubgridValidatorIterator extends ValidatorIterator{
     public iterate(state: ValidationState, val: number): ValidationState {
         const p = state.getPosition();
         if (p.getColumn() == Math.pow(this.n, 2) && p.getRow() == Math.pow(this.n, 2)) {
-            return new ValidationState(pos(0, 0), []);
+            return new InProgressValidationState(pos(0, 0), []);
         }
         if (p.getColumn() == Math.pow(this.n, 2) && p.getRow() % this.n == 0) {
-            return new ValidationState(pos(p.getRow()+1, 1), []);
+            return new InProgressValidationState(pos(p.getRow()+1, 1), []);
         }
         if (p.getColumn() % this.n == 0 && p.getRow() % this.n == 0) {
-            return new ValidationState(pos(p.getRow()-this.n+1, p.getColumn()+1), []);
+            return new InProgressValidationState(pos(p.getRow()-this.n+1, p.getColumn()+1), []);
         }
         let newValues = state.getSeenValues();
         if (val != 0) {
             newValues.push(val);
         }
         if (p.getColumn() % this.n == 0) {
-            return new ValidationState(pos(p.getRow()+1, p.getColumn()-this.n+1), newValues);
+            return new InProgressValidationState(pos(p.getRow()+1, p.getColumn()-this.n+1), newValues);
         }
-        return new ValidationState(pos(p.getRow(), p.getColumn()+1), newValues);
+        return new InProgressValidationState(pos(p.getRow(), p.getColumn()+1), newValues);
     }
 
 }
