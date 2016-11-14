@@ -1,0 +1,38 @@
+{
+  "name": "afsudoku",
+  "version": "0.1.0",
+  "description": "A backtracking sudoku solver",
+  "main": "dist/sudoku.js",
+  "scripts": {
+    "typings-install": "./node_modules/.bin/typings install",
+    "build": "./node_modules/.bin/tsc -p . --outDir dist/",
+    "test": "node_modules/.bin/mocha dist/test/",
+    "build-test": "npm run build && npm test",
+    "postinstall": "npm run typings-install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lencse/afsudoku.git"
+  },
+  "keywords": [
+    "sudoku",
+    "sudoku-solver",
+    "solver",
+    "puzzle",
+    "backtrack",
+    "backtracking"
+  ],
+  "author": "Levente Löki <leventeloki@gmail.com> (https://lokilevente.hu/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lencse/afsudoku/issues"
+  },
+  "homepage": "https://github.com/lencse/afsudoku#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2",
+    "mocha-typescript": "^1.0.11",
+    "typescript": "^2.0.9",
+    "typings": "^2.0.0"
+  }
+}
