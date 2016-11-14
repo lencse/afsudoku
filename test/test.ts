@@ -5,8 +5,8 @@ import { Position, pos } from "../src/Position";
 
 @suite class SudokuTest {
 
-    @test "creation"() {
-        let sudoku = new Sudoku();
+    @test "creation"() {    
+        let sudoku = new Sudoku(1);
         assert.isDefined(sudoku);
     }
 
