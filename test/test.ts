@@ -24,6 +24,11 @@ import { Position, pos } from "../src/Position";
         assert.equal(2, sudoku.val(pos(2, 1)));
     }
 
+    @test "valid-after-creation"() {
+        let sudoku = new Sudoku(1);
+        assert.isTrue(sudoku.isValid());
+    }
+
     @test "position"() {
         let position = new Position(1, 2);
         assert.equal(1, position.getRow());

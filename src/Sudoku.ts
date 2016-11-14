@@ -24,4 +24,8 @@ export class Sudoku {
         return (position.getRow()-1) * Math.pow(this.n, 2) + position.getColumn()-1;
     }
 
+    public isValid(): boolean {
+        return true;
+    }
+
 }
