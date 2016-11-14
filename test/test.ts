@@ -16,6 +16,14 @@ import { Position, pos } from "../src/Position";
         assert.equal(1, sudoku.val(pos(1, 1)));
     }
 
+    @test "put-and-val n=2"() {
+        let sudoku = new Sudoku(2);
+        sudoku.put(pos(1, 1), 1);
+        sudoku.put(pos(2, 1), 2);
+        assert.equal(1, sudoku.val(pos(1, 1)));
+        assert.equal(2, sudoku.val(pos(2, 1)));
+    }
+
     @test "position"() {
         let position = new Position(1, 2);
         assert.equal(1, position.getRow());

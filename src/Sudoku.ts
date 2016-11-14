@@ -3,18 +3,21 @@ import { Position } from "./Position";
 export class Sudoku {
 
     private n: number;
-    private value: number;
+    private cells: Array<number> = [];
 
     constructor (n: number) {
-        this.n = n
+        this.n = n;
+        for (let i = 0; i < Math.pow(n, 4); ++i) {
+            this.cells.push(0);
+        }
     }
 
     public put(position: Position, value: number) {
-        this.value = value;
+        this.cells[(position.getRow()-1) * Math.pow(this.n, 2) + position.getColumn()-1] = value;
     }
 
     public val(position: Position): number {
-        return this.value;
+        return this.cells[(position.getRow()-1) * Math.pow(this.n, 2) + position.getColumn()-1];
     }
 
 }
