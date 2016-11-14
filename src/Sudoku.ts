@@ -1,4 +1,5 @@
 import { Position, pos } from "./Position";
+import { ValidationState, RowValidatorIterator } from "./Validation";
 
 export class Sudoku {
 
@@ -10,6 +11,10 @@ export class Sudoku {
         for (let i = 0; i < Math.pow(n, 4); ++i) {
             this.cells.push(0);
         }
+    }
+
+    public getN(): number {
+        return this.n;
     }
 
     public put(position: Position, value: number) {
@@ -25,18 +30,13 @@ export class Sudoku {
     }
 
     public isValid(): boolean {
-        for (let row = 1; row <= Math.pow(this.n, 2); ++row) {
-            let vals = [];
-            for (let col = 1; col <= Math.pow(this.n, 2); ++col) {
-                const val = this.val(pos(row, col)) 
-                if (val == 0) {
-                    continue;
-                }
-                if (vals.indexOf(val) != -1) {
-                    return false;
-                }
-                vals.push(val);
+        let state = new ValidationState(pos(1, 1), []);
+        let iterator = new RowValidatorIterator(this);
+        while (state.getPosition().getColumn() != 0) {
+            if (state.getSeenValues().indexOf(this.val(state.getPosition())) != -1) {
+                return false;
             }
+            state = iterator.iterate(state);
         }
         for (let col = 1; col <= Math.pow(this.n, 2); ++col) {
             let vals = [];
