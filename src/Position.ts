@@ -17,3 +17,7 @@ export class Position {
     }
 
 }
+
+export function pos(row: number, column: number): Position {
+    return new Position(row, column);
+}

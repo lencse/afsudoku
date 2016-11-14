@@ -1,7 +1,7 @@
 import { suite, test, slow, timeout, skip, only } from "mocha-typescript";
 import { assert } from "chai";
 import { Sudoku } from "../src/Sudoku";
-import { Position } from "../src/Position";
+import { Position, pos } from "../src/Position";
 
 @suite class SudokuTest {
 
@@ -12,6 +12,12 @@ import { Position } from "../src/Position";
 
     @test "position"() {
         let position = new Position(1, 2);
+        assert.equal(1, position.getRow());
+        assert.equal(2, position.getColumn());
+    }
+
+    @test "pos"() {
+        let position = pos(1, 2);
         assert.equal(1, position.getRow());
         assert.equal(2, position.getColumn());
     }
