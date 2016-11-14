@@ -34,7 +34,7 @@ export class Sudoku {
     private validate(iterator: ValidatorIterator): boolean {
         let state = startValidationState();
         while (!state.isFinished()) {
-            if (state.getSeenValues().indexOf(this.val(state.getPosition())) != -1) {
+            if (!state.isValid()) {
                 return false;
             }
             state = iterator.iterate(state, this.val(state.getPosition()));

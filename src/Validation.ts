@@ -6,6 +6,7 @@ export interface ValidationState {
     isFinished(): boolean;
     getPosition(): Position;
     getSeenValues(): Array<number>;
+    isValid(): boolean;
 
 }
 
@@ -21,6 +22,10 @@ export class InProgressValidationState implements ValidationState {
 
     public isFinished(): boolean {
         return false;
+    }
+
+    public isValid(): boolean {
+        return true;
     }
 
     public getPosition(): Position {
@@ -39,12 +44,36 @@ class FinishedValidationState implements ValidationState {
         return true;
     }
 
+    public isValid(): boolean {
+        return true;
+    }
+
     public getPosition(): Position {
         throw "Shouldn't be called";
     }
 
     public getSeenValues(): Array<number> {
         throw "Shouldn't be called";
+    }
+
+}
+
+class InvalidValidationState implements ValidationState {
+
+    public isFinished(): boolean {
+        return false;
+    }
+
+    public getPosition(): Position {
+        throw "Shouldn't be called";
+    }
+
+    public getSeenValues(): Array<number> {
+        throw "Shouldn't be called";
+    }
+
+    public isValid(): boolean {
+        return false;
     }
 
 }
@@ -62,6 +91,9 @@ export abstract class ValidatorIterator {
     }
 
     public iterate(state: ValidationState, val: number): ValidationState {
+        if (state.getSeenValues().indexOf(val) != -1) {
+            return new InvalidValidationState();
+        }
         if (state.getPosition().getColumn() == Math.pow(this.n, 2) && state.getPosition().getRow() == Math.pow(this.n, 2)) {
             return new FinishedValidationState();
         }
