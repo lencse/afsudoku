@@ -74,3 +74,29 @@ export class ColumnValidatorIterator extends ValidatorIterator{
     }
 
 }
+
+export class SubgridValidatorIterator extends ValidatorIterator{
+
+    public iterate(state: ValidationState): ValidationState {
+        const p = state.getPosition();
+        if (p.getColumn() == Math.pow(this.n, 2) && p.getRow() == Math.pow(this.n, 2)) {
+            return new ValidationState(pos(0, 0), []);
+        }
+        if (p.getColumn() == Math.pow(this.n, 2) && p.getRow() % this.n == 0) {
+            return new ValidationState(pos(p.getRow()+1, 1), []);
+        }
+        if (p.getColumn() % this.n == 0 && p.getRow() % this.n == 0) {
+            return new ValidationState(pos(p.getRow()-this.n+1, p.getColumn()+1), []);
+        }
+        let newValues = state.getSeenValues();
+        const val = this.sudoku.val(p);
+        if (val != 0) {
+            newValues.push(val);
+        }
+        if (p.getColumn() % this.n == 0) {
+            return new ValidationState(pos(p.getRow()+1, p.getColumn()-this.n+1), newValues);
+        }
+        return new ValidationState(pos(p.getRow(), p.getColumn()+1), newValues);
+    }
+
+}

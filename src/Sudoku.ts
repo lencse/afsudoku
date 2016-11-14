@@ -1,5 +1,5 @@
 import { Position, pos } from "./Position";
-import { ValidationState, ValidatorIterator, RowValidatorIterator, ColumnValidatorIterator } from "./Validation";
+import { ValidationState, ValidatorIterator, RowValidatorIterator, ColumnValidatorIterator, SubgridValidatorIterator } from "./Validation";
 
 export class Sudoku {
 
@@ -31,7 +31,8 @@ export class Sudoku {
 
     public isValid(): boolean {
         return this.validate(new RowValidatorIterator(this))
-            && this.validate(new ColumnValidatorIterator(this));
+            && this.validate(new ColumnValidatorIterator(this))
+            && this.validate(new SubgridValidatorIterator(this));
     }
 
     private validate(iterator: ValidatorIterator): boolean {

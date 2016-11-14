@@ -42,6 +42,13 @@ import { Position, pos } from "../src/Position";
         sudoku.put(pos(3, 1), 1);
         assert.isFalse(sudoku.isValid());
     }
+    
+    @test "check-invalid-subgrid"() {
+        let sudoku = new Sudoku(2);
+        sudoku.put(pos(3, 3), 1);
+        sudoku.put(pos(4, 4), 1);
+        assert.isFalse(sudoku.isValid());
+    }
 
     @test "position"() {
         let position = new Position(1, 2);
