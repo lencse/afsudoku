@@ -29,6 +29,20 @@ import { Position, pos } from "../src/Position";
         assert.isTrue(sudoku.isValid());
     }
 
+    @test "check-invalid-row"() {
+        let sudoku = new Sudoku(2);
+        sudoku.put(pos(1, 1), 1);
+        sudoku.put(pos(1, 3), 1);
+        assert.isFalse(sudoku.isValid());
+    }
+
+    @test "check-invalid-column"() {
+        let sudoku = new Sudoku(2);
+        sudoku.put(pos(1, 1), 1);
+        sudoku.put(pos(3, 1), 1);
+        assert.isFalse(sudoku.isValid());
+    }
+
     @test "position"() {
         let position = new Position(1, 2);
         assert.equal(1, position.getRow());

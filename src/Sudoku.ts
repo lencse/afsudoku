@@ -38,6 +38,19 @@ export class Sudoku {
                 vals.push(val);
             }
         }
+        for (let col = 1; col <= Math.pow(this.n, 2); ++col) {
+            let vals = [];
+            for (let row = 1; row <= Math.pow(this.n, 2); ++row) {
+                const val = this.val(pos(row, col)) 
+                if (val == 0) {
+                    continue;
+                }
+                if (vals.indexOf(val) != -1) {
+                    return false;
+                }
+                vals.push(val);
+            }
+        }
         return true;
     }
 
