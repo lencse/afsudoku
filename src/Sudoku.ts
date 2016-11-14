@@ -1,4 +1,4 @@
-import { Position } from "./Position";
+import { Position, pos } from "./Position";
 
 export class Sudoku {
 
@@ -25,6 +25,19 @@ export class Sudoku {
     }
 
     public isValid(): boolean {
+        for (let row = 1; row <= Math.pow(this.n, 2); ++row) {
+            let vals = [];
+            for (let col = 1; col <= Math.pow(this.n, 2); ++col) {
+                const val = this.val(pos(row, col)) 
+                if (val == 0) {
+                    continue;
+                }
+                if (vals.indexOf(val) != -1) {
+                    return false;
+                }
+                vals.push(val);
+            }
+        }
         return true;
     }
 
