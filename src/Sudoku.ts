@@ -13,11 +13,15 @@ export class Sudoku {
     }
 
     public put(position: Position, value: number) {
-        this.cells[(position.getRow()-1) * Math.pow(this.n, 2) + position.getColumn()-1] = value;
+        this.cells[this.transformPositionToIndex(position)] = value;
     }
 
     public val(position: Position): number {
-        return this.cells[(position.getRow()-1) * Math.pow(this.n, 2) + position.getColumn()-1];
+        return this.cells[this.transformPositionToIndex(position)];
+    }
+
+    private transformPositionToIndex(position: Position): number {
+        return (position.getRow()-1) * Math.pow(this.n, 2) + position.getColumn()-1;
     }
 
 }
