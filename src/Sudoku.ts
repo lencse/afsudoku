@@ -42,7 +42,7 @@ export abstract class Sudoku {
         return true;
     }
 
-    public startSolving(): Sudoku {
+    public startSolving(): SudokuUnderSolving {
         return new SudokuUnderSolving(this.n, this.cells);
     }
 
@@ -57,5 +57,11 @@ export class SudokuUnderSetup extends Sudoku {
 }
 
 export class SudokuUnderSolving extends Sudoku {
+
+    public step(): SudokuUnderSolving {
+        let next = new SudokuUnderSolving(this.n, this.cells);
+        next.cells[0] = 1;
+        return next;
+    }
 
 }

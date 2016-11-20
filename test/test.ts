@@ -16,6 +16,8 @@ import { Position, pos } from "../src/Position";
         sudoku.put(pos(2, 1), 3);
         let solving = sudoku.startSolving();
         assert.equal(2, solving.val(pos(1, 2)));
+        let step1 = solving.step();
+        assert.equal(1, step1.val(pos(1, 1)));
     }
 
     @test "put-and-val n=1"() {
