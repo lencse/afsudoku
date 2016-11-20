@@ -84,10 +84,16 @@ export class SudokuUnderSolving extends Sudoku {
 
         ++next.cells[next.modifyableCells[next.current]];
 
+        if (next.cells[next.modifyableCells[next.current]] > Math.pow(this.n, 2)) {
+            next.cells[next.modifyableCells[next.current]] = 0;
+            --next.current;
+            return next;
+        }
+
         if (next.isValid()) {
             ++next.current;
         }
-        
+
         return next;
     }
 

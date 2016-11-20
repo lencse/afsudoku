@@ -26,7 +26,7 @@ import { Position, pos } from "../src/Position";
         assert.equal(3, step4.val(pos(1, 3)));
     }
 
-    @test "solving-overload"() {
+    @test "solving-step-back"() {
         let sudoku = Sudoku.create(2);
         sudoku.put(pos(1, 2), 3);
         sudoku.put(pos(2, 2), 4);
@@ -37,7 +37,9 @@ import { Position, pos } from "../src/Position";
         for (let i = 0; i < 6; ++i) {
             solving = solving.step();
         }
-        assert.equal(5, solving.val(pos(1, 3)));
+        assert.equal(0, solving.val(pos(1, 3)));
+        solving = solving.step();
+        assert.equal(2, solving.val(pos(1, 1)));
     }
 
     @test "put-and-val n=1"() {
