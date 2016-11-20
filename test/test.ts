@@ -10,6 +10,14 @@ import { Position, pos } from "../src/Position";
         assert.isDefined(sudoku);
     }
 
+    @test "solving"() {
+        let sudoku = new Sudoku(2);
+        sudoku.put(pos(1, 2), 2);
+        sudoku.put(pos(2, 1), 3);
+        let solving = sudoku.startSolving();
+        assert.isDefined(solving);
+    }
+    
     @test "put-and-val n=1"() {
         let sudoku = new Sudoku(1);
         sudoku.put(pos(1, 1), 1);

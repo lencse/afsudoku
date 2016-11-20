@@ -42,4 +42,8 @@ export class Sudoku {
         return true;
     }
 
+    public startSolving(): Sudoku {
+        return this;
+    }
+
 }
