@@ -3,10 +3,10 @@ import { ValidationState, startValidationState, ValidatorIterator, RowValidatorI
 
 export abstract class Sudoku {
 
-    private n: number;
-    private cells: Array<number> = [];
+    protected n: number;
+    protected cells: Array<number> = [];
 
-    public static create(n: number): Sudoku {
+    public static create(n: number): SudokuUnderSetup {
         return new SudokuUnderSetup(n);
     }
 
@@ -17,15 +17,11 @@ export abstract class Sudoku {
         }
     }
 
-    public put(position: Position, value: number) {
-        this.cells[this.transformPositionToIndex(position)] = value;
-    }
-
     public val(position: Position): number {
         return this.cells[this.transformPositionToIndex(position)];
     }
 
-    private transformPositionToIndex(position: Position): number {
+    protected transformPositionToIndex(position: Position): number {
         return (position.getRow()-1) * Math.pow(this.n, 2) + position.getColumn()-1;
     }
 
@@ -52,6 +48,10 @@ export abstract class Sudoku {
 
 }
 
-class SudokuUnderSetup extends Sudoku {
+export class SudokuUnderSetup extends Sudoku {
+
+    public put(position: Position, value: number) {
+        this.cells[this.transformPositionToIndex(position)] = value;
+    }
 
 }
