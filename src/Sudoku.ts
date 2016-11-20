@@ -1,16 +1,16 @@
 import { Position, pos } from "./Position";
 import { ValidationState, startValidationState, ValidatorIterator, RowValidatorIterator, ColumnValidatorIterator, SubgridValidatorIterator } from "./Validation";
 
-export class Sudoku {
+export abstract class Sudoku {
 
     private n: number;
     private cells: Array<number> = [];
 
     public static create(n: number): Sudoku {
-        return new Sudoku(n);
+        return new SudokuUnderSetup(n);
     }
-    
-    private constructor (n: number) {
+
+    protected constructor (n: number) {
         this.n = n;
         for (let i = 0; i < Math.pow(n, 4); ++i) {
             this.cells.push(0);
@@ -49,5 +49,9 @@ export class Sudoku {
     public startSolving(): Sudoku {
         return this;
     }
+
+}
+
+class SudokuUnderSetup extends Sudoku {
 
 }
