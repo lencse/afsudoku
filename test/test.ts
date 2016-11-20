@@ -6,26 +6,26 @@ import { Position, pos } from "../src/Position";
 @suite class SudokuTest {
 
     @test "creation"() {    
-        let sudoku = new Sudoku(1);
+        let sudoku = Sudoku.create(1);
         assert.isDefined(sudoku);
     }
 
     @test "solving"() {
-        let sudoku = new Sudoku(2);
+        let sudoku = Sudoku.create(2);
         sudoku.put(pos(1, 2), 2);
         sudoku.put(pos(2, 1), 3);
         let solving = sudoku.startSolving();
         assert.isDefined(solving);
     }
-    
+
     @test "put-and-val n=1"() {
-        let sudoku = new Sudoku(1);
+        let sudoku = Sudoku.create(1);
         sudoku.put(pos(1, 1), 1);
         assert.equal(1, sudoku.val(pos(1, 1)));
     }
 
     @test "put-and-val n=2"() {
-        let sudoku = new Sudoku(2);
+        let sudoku = Sudoku.create(2);
         sudoku.put(pos(1, 1), 1);
         sudoku.put(pos(2, 1), 2);
         assert.equal(1, sudoku.val(pos(1, 1)));
@@ -33,26 +33,26 @@ import { Position, pos } from "../src/Position";
     }
 
     @test "valid-after-creation"() {
-        let sudoku = new Sudoku(1);
+        let sudoku = Sudoku.create(1);
         assert.isTrue(sudoku.isValid());
     }
 
     @test "check-invalid-row"() {
-        let sudoku = new Sudoku(2);
+        let sudoku = Sudoku.create(2);
         sudoku.put(pos(1, 1), 1);
         sudoku.put(pos(1, 3), 1);
         assert.isFalse(sudoku.isValid());
     }
 
     @test "check-invalid-column"() {
-        let sudoku = new Sudoku(2);
+        let sudoku = Sudoku.create(2);
         sudoku.put(pos(1, 1), 1);
         sudoku.put(pos(3, 1), 1);
         assert.isFalse(sudoku.isValid());
     }
     
     @test "check-invalid-subgrid"() {
-        let sudoku = new Sudoku(2);
+        let sudoku = Sudoku.create(2);
         sudoku.put(pos(3, 3), 1);
         sudoku.put(pos(4, 4), 1);
         assert.isFalse(sudoku.isValid());

@@ -6,7 +6,11 @@ export class Sudoku {
     private n: number;
     private cells: Array<number> = [];
 
-    constructor (n: number) {
+    public static create(n: number): Sudoku {
+        return new Sudoku(n);
+    }
+    
+    private constructor (n: number) {
         this.n = n;
         for (let i = 0; i < Math.pow(n, 4); ++i) {
             this.cells.push(0);
