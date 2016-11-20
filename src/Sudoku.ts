@@ -59,7 +59,10 @@ export class SudokuUnderSetup extends Sudoku {
 
     public solve(): SudokuUnderSolving {
         let solving = this.startSolving();
-        return solving.step();
+        while (!solving.isSolved()) {
+            solving = solving.step();
+        }
+        return solving;
     }
 
     protected setUp() {
@@ -100,6 +103,11 @@ export class SudokuUnderSolving extends Sudoku {
         }
 
         return next;
+    }
+
+    public isSolved(): boolean {
+        return (this.current == this.modifyableCells.length)
+            && this.isValid();
     }
 
 }
