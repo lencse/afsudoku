@@ -18,6 +18,8 @@ import { Position, pos } from "../src/Position";
         assert.equal(2, solving.val(pos(1, 2)));
         let step1 = solving.step();
         assert.equal(1, step1.val(pos(1, 1)));
+        let step2 = step1.step();
+        assert.equal(1, step2.val(pos(1, 3)));
     }
 
     @test "put-and-val n=1"() {

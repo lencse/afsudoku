@@ -81,7 +81,13 @@ export class SudokuUnderSolving extends Sudoku {
         let next = new SudokuUnderSolving(this.n, this.cells);
         next.modifyableCells = this.modifyableCells;
         next.current = this.current;
+
         ++next.cells[next.modifyableCells[next.current]];
+
+        if (next.isValid()) {
+            ++next.current;
+        }
+        
         return next;
     }
 
