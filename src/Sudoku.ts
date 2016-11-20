@@ -10,10 +10,10 @@ export abstract class Sudoku {
         return new SudokuUnderSetup(n);
     }
 
-    protected constructor (n: number) {
+    protected constructor (n: number, cells: Array<number> = null) {
         this.n = n;
         for (let i = 0; i < Math.pow(n, 4); ++i) {
-            this.cells.push(0);
+            this.cells.push(cells ? cells[i] : 0);
         }
     }
 
@@ -43,7 +43,7 @@ export abstract class Sudoku {
     }
 
     public startSolving(): Sudoku {
-        return this;
+        return new SudokuUnderSolving(this.n, this.cells);
     }
 
 }
@@ -53,5 +53,9 @@ export class SudokuUnderSetup extends Sudoku {
     public put(position: Position, value: number) {
         this.cells[this.transformPositionToIndex(position)] = value;
     }
+
+}
+
+export class SudokuUnderSolving extends Sudoku {
 
 }
