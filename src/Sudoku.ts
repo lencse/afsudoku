@@ -10,7 +10,7 @@ export abstract class Sudoku {
         return new SudokuUnderSetup(n);
     }
 
-    protected constructor (n: number, cells: Array<number> = null) {
+    protected constructor (n: number, cells?: Array<number>) {
         this.n = n;
         for (let i = 0; i < Math.pow(n, 4); ++i) {
             this.cells.push(cells ? cells[i] : 0);
