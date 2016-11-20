@@ -42,6 +42,12 @@ import { Position, pos } from "../src/Position";
         assert.equal(2, solving.val(pos(1, 1)));
     }
 
+    @test "solve n=1"() {
+        let sudoku = Sudoku.create(1);
+        let solved = sudoku.solve();
+        assert.equal(1, solved.val(pos(1, 1)));
+    }
+
     @test "put-and-val n=1"() {
         let sudoku = Sudoku.create(1);
         sudoku.put(pos(1, 1), 1);

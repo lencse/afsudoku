@@ -57,6 +57,11 @@ export class SudokuUnderSetup extends Sudoku {
         this.cells[this.transformPositionToIndex(position)] = value;
     }
 
+    public solve(): SudokuUnderSolving {
+        let solving = this.startSolving();
+        return solving.step();
+    }
+
     protected setUp() {
     }
 
