@@ -26,6 +26,20 @@ import { Position, pos } from "../src/Position";
         assert.equal(3, step4.val(pos(1, 3)));
     }
 
+    @test "solving-overload"() {
+        let sudoku = Sudoku.create(2);
+        sudoku.put(pos(1, 2), 3);
+        sudoku.put(pos(2, 2), 4);
+        sudoku.put(pos(1, 4), 4);
+        sudoku.put(pos(2, 3), 2);
+        sudoku.put(pos(2, 4), 3);
+        let solving = sudoku.startSolving();
+        for (let i = 0; i < 6; ++i) {
+            solving = solving.step();
+        }
+        assert.equal(5, solving.val(pos(1, 3)));
+    }
+
     @test "put-and-val n=1"() {
         let sudoku = Sudoku.create(1);
         sudoku.put(pos(1, 1), 1);
