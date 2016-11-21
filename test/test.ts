@@ -80,7 +80,7 @@ import { Position, pos } from "../src/Position";
     }
 
     @test "solve n=3"() {
-        let sudoku = Sudoku.create(3);
+        let sudoku = Sudoku.create();
         
         sudoku.put(pos(1, 6), 1);
 

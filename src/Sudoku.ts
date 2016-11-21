@@ -6,7 +6,8 @@ export abstract class Sudoku {
     protected n: number;
     protected cells: Array<number> = [];
 
-    public static create(n: number): SudokuUnderSetup {
+    public static create(n?: number): SudokuUnderSetup {
+        n = n || 3;
         return new SudokuUnderSetup(n);
     }
 
