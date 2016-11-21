@@ -45,10 +45,6 @@ export abstract class Sudoku {
         return true;
     }
 
-    public startSolving(): SudokuUnderSolving {
-        return new SudokuUnderSolving(this.n, this.cells);
-    }
-
 }
 
 export class SudokuUnderSetup extends Sudoku {
@@ -57,6 +53,10 @@ export class SudokuUnderSetup extends Sudoku {
         this.cells[this.transformPositionToIndex(position)] = value;
     }
 
+    public startSolving(): SudokuUnderSolving {
+        return new SudokuUnderSolving(this.n, this.cells);
+    }
+    
     public solve(): SudokuUnderSolving {
         let solving = this.startSolving();
         while (!solving.isSolved() && !solving.isFailed()) {
