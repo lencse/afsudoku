@@ -59,7 +59,7 @@ export class SudokuUnderSetup extends Sudoku {
 
     public solve(): SudokuUnderSolving {
         let solving = this.startSolving();
-        while (!solving.isSolved()) {
+        while (!solving.isSolved() && !solving.isFailed()) {
             solving = solving.step();
         }
         return solving;
@@ -108,6 +108,10 @@ export class SudokuUnderSolving extends Sudoku {
     public isSolved(): boolean {
         return (this.current == this.modifyableCells.length)
             && this.isValid();
+    }
+
+    public isFailed(): boolean {
+        return this.current == -1;
     }
 
     private getCurrentVal(): number {

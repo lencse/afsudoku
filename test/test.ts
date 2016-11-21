@@ -136,6 +136,14 @@ import { Position, pos } from "../src/Position";
         }
     }
 
+    @test "no-solution"() {
+        let sudoku = Sudoku.create(2);
+        sudoku.put(pos(1, 1), 1);
+        sudoku.put(pos(2, 1), 1);
+        let result = sudoku.solve();
+        assert.isTrue(result.isFailed());
+    }
+
     @test "put-and-val n=1"() {
         let sudoku = Sudoku.create(1);
         sudoku.put(pos(1, 1), 1);
