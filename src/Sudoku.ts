@@ -90,10 +90,10 @@ export class SudokuUnderSolving extends Sudoku {
         next.modifyableCells = this.modifyableCells;
         next.current = this.current;
 
-        ++next.cells[next.modifyableCells[next.current]];
+        next.setCurrentVal(next.getCurrentVal() + 1);
 
-        if (next.cells[next.modifyableCells[next.current]] > Math.pow(this.n, 2)) {
-            next.cells[next.modifyableCells[next.current]] = 0;
+        if (next.getCurrentVal() > Math.pow(this.n, 2)) {
+            next.setCurrentVal(0);
             --next.current;
             return next;
         }
@@ -108,6 +108,18 @@ export class SudokuUnderSolving extends Sudoku {
     public isSolved(): boolean {
         return (this.current == this.modifyableCells.length)
             && this.isValid();
+    }
+
+    private getCurrentVal(): number {
+        return this.cells[this.getCurrentIndex()];
+    }
+
+    private setCurrentVal(val: number) {
+        this.cells[this.getCurrentIndex()] = val;
+    }
+
+    private getCurrentIndex(): number {
+        return this.modifyableCells[this.current];
     }
 
 }

@@ -6,7 +6,7 @@
   "scripts": {
     "typings-install": "./node_modules/.bin/typings install",
     "build": "./node_modules/.bin/tsc -p . --outDir dist/",
-    "test": "node_modules/.bin/mocha dist/test/",
+    "test": "node_modules/.bin/mocha dist/test/ --timeout 5000",
     "build-test": "npm run build && npm test",
     "postinstall": "npm run typings-install"
   },
