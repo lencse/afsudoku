@@ -1,6 +1,6 @@
 {
   "name": "afsudoku",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A backtracking sudoku solver",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
