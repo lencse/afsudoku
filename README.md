@@ -1,4 +1,6 @@
-# afSudoku
+# afsudoku
+
+[![Build Status](https://travis-ci.org/lencse/afsudoku.svg?branch=master)](https://travis-ci.org/lencse/afsudoku)
 
 A Sudoku solver with backtracking algorithm.
 
