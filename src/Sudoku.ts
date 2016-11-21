@@ -68,6 +68,10 @@ export class SudokuUnderSetup extends Sudoku {
     protected setUp() {
     }
 
+    public isSolvable(): boolean {
+        return this.solve().isSolved();
+    }
+
 }
 
 export class SudokuUnderSolving extends Sudoku {

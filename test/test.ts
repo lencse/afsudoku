@@ -144,6 +144,13 @@ import { Position, pos } from "../src/Position";
         assert.isTrue(result.isFailed());
     }
 
+    @test "is-solvable"() {
+        let sudoku = Sudoku.create(2);
+        sudoku.put(pos(1, 1), 1);
+        sudoku.put(pos(2, 1), 1);
+        assert.isFalse(sudoku.isSolvable());
+    }
+
     @test "put-and-val n=1"() {
         let sudoku = Sudoku.create(1);
         sudoku.put(pos(1, 1), 1);
