@@ -2,7 +2,15 @@
 
 A Sudoku solver with backtracking algorithm.
 
-## TLDR
+## Installation
+
+````shell
+npm install afsudoku
+````
+
+## Usage
+
+### TLDR
 
 ````js
 let Sudoku = require("afsudoku").Sudoku;
@@ -10,7 +18,7 @@ let pos = require("afsudoku").pos;
 
 let sudoku = Sudoku.create();
 
-sudoku.put(pos(1, 6), 1);
+sudoku.put(pos(1, 6), 1); // put(pos(row, column), value)
 
 sudoku.put(pos(2, 1), 7);
 sudoku.put(pos(2, 3), 6);
@@ -66,29 +74,3 @@ for (let row = 1; row <= 9; ++row) {
 // 179328645
 // 254769318
 ````
-
-This script solves a 9x9 sudoku:
-
-|   |   |   |   |   |   |   |   |   |
-| - | - | - | - | - | - | - | - | - |
-|   |   |   |   |   | 1 |   |   |   |
-| 7 |   | 6 | 5 | 8 |   |   |   | 4 |
-|   | 2 |   |   |   | 6 |   | 3 |   |
-|   | 3 |   |   | 4 |   |   | 5 |   |
-| 4 |   | 2 |   |   |   | 7 |   | 3 |
-|   | 1 |   |   | 3 |   |   |   |   |
-|   | 8 |   | 1 |   |   |   | 9 |   |
-| 1 |   |   |   | 2 |   | 6 |   | 5 |
-|   |   |   | 7 |   |   |   |   |   |
-
-Solution:
-
-| 3 | 4 | 8 | 2 | 9 | 1 | 5 | 7 | 6 |
-| 7 | 9 | 6 | 5 | 8 | 3 | 1 | 2 | 4 |
-| 5 | 2 | 1 | 4 | 7 | 6 | 8 | 3 | 9 |
-| 8 | 3 | 7 | 6 | 4 | 2 | 9 | 5 | 1 |
-| 4 | 6 | 2 | 9 | 1 | 5 | 7 | 8 | 3 |
-| 9 | 1 | 5 | 8 | 3 | 7 | 4 | 6 | 2 |
-| 6 | 8 | 3 | 1 | 5 | 4 | 2 | 9 | 7 |
-| 1 | 7 | 9 | 3 | 2 | 8 | 6 | 4 | 5 |
-| 2 | 5 | 4 | 7 | 6 | 9 | 3 | 1 | 8 |
