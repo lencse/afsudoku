@@ -13,7 +13,15 @@ import { Position, pos } from "../src/Position";
     @test "soft-cell"() {
         let sudoku = Sudoku.create(1);
         let cell = sudoku.cell(pos(1, 1));
-        assert.isTrue(cell.isSoft())
+        assert.isTrue(cell.isSoft());
+        assert.equal(0, cell.val());
+    }
+
+    @test "hard-cell"() {
+        let sudoku = Sudoku.create(1);
+        sudoku.put(pos(1, 1), 1);
+        let cell = sudoku.cell(pos(1, 1));
+        assert.isFalse(cell.isSoft())
     }
 
     @test "solving"() {

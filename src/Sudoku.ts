@@ -1,6 +1,6 @@
 import { Position, pos } from "./Position";
 import { ValidationState, startValidationState, ValidatorIterator, RowValidatorIterator, ColumnValidatorIterator, SubgridValidatorIterator } from "./Validation";
-import { Cell, SoftCell } from "./Cell";
+import { Cell, SoftCell, HardCell } from "./Cell";
 
 export abstract class Sudoku {
 
@@ -26,9 +26,7 @@ export abstract class Sudoku {
         return this.cells[this.transformPositionToIndex(position)];
     }
 
-    public cell(position: Position): Cell {
-        return new SoftCell();
-    }
+    public abstract cell(position: Position): Cell;
 
     protected transformPositionToIndex(position: Position): number {
         return (position.getRow()-1) * Math.pow(this.n, 2) + position.getColumn()-1;
@@ -54,6 +52,13 @@ export abstract class Sudoku {
 }
 
 export class SudokuUnderSetup extends Sudoku {
+
+    public cell(position: Position): Cell {
+        if (this.val(position) == 0) {
+            return new SoftCell(0);
+        }
+        return new HardCell(this.val(position));
+    }
 
     public put(position: Position, value: number) {
         this.cells[this.transformPositionToIndex(position)] = value;
@@ -84,6 +89,13 @@ export class SudokuUnderSolving extends Sudoku {
 
     private modifyableCells: Array<number>;
     private current: number;
+
+    public cell(position: Position): Cell {
+        if (this.val(position) == 0) {
+            return new SoftCell(0);
+        }
+        return new HardCell(this.val(position));
+    }
 
     protected setUp() {
         this.modifyableCells = [];

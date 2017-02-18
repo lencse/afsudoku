@@ -1,13 +1,30 @@
-export interface Cell {
+export abstract class Cell {
 
-    isSoft(): boolean;
+    private value: number;
 
+    constructor (value: number) {
+        this.value = value;
+    }
+
+    public abstract isSoft(): boolean;
+
+    public val(): number {
+        return this.value;
+    }
 }
 
-export class SoftCell implements Cell {
+export class SoftCell extends Cell {
 
     public isSoft(): boolean {
         return true;
+    }
+
+}
+
+export class HardCell extends Cell {
+
+    public isSoft(): boolean {
+        return false;
     }
 
 }
