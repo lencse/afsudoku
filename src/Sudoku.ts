@@ -91,8 +91,8 @@ export class SudokuUnderSolving extends Sudoku {
     private current: number;
 
     public cell(position: Position): Cell {
-        if (this.val(position) == 0) {
-            return new SoftCell(0);
+        if (this.modifyableCells.indexOf(this.transformPositionToIndex(position)) != -1) {
+            return new SoftCell(this.val(position));
         }
         return new HardCell(this.val(position));
     }

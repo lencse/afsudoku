@@ -24,6 +24,39 @@ import { Position, pos } from "../src/Position";
         assert.isFalse(cell.isSoft())
     }
 
+    @test "soft-and-hard-cell-after-solving"() {
+        let sudoku = Sudoku.create(2);
+        sudoku.put(pos(1, 1), 1);
+        sudoku.put(pos(1, 2), 3);
+        sudoku.put(pos(1, 3), 2);
+        sudoku.put(pos(1, 4), 4);
+
+        // sudoku.put(pos(2, 1), 2);
+        // sudoku.put(pos(2, 2), 4);
+        sudoku.put(pos(2, 3), 1);
+        sudoku.put(pos(2, 4), 3);
+
+        sudoku.put(pos(3, 1), 3);
+        sudoku.put(pos(3, 2), 1);
+        // sudoku.put(pos(3, 3), 4);
+        sudoku.put(pos(3, 4), 2);
+
+        sudoku.put(pos(4, 1), 4);
+        sudoku.put(pos(4, 2), 2);
+        // sudoku.put(pos(4, 3), 3);
+        // sudoku.put(pos(4, 4), 1);
+
+        let solved = sudoku.solve();
+
+        let cell1 = solved.cell(pos(3, 4));
+        assert.isFalse(cell1.isSoft());
+        assert.equal(2, cell1.val());
+
+        let cell2 = solved.cell(pos(3, 3));
+        assert.isTrue(cell2.isSoft());
+        assert.equal(4, cell2.val());
+    }
+
     @test "solving"() {
         let sudoku = Sudoku.create(2);
         sudoku.put(pos(1, 2), 2);
