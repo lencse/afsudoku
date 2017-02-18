@@ -75,4 +75,21 @@ for (let row = 1; row <= 9; ++row) {
 // 683154297
 // 179328645
 // 254769318
+
+
+let cell1 = solved.cell(pos(9, 4));
+let cell2 = solved.cell(pos(9, 5));
+
+// Soft and hard cells
+//
+// Hard cell: a cell that is part of the puzzle and can't be modified
+// Soft cell: a cell that can be modified while solving
+
+console.log(cell1.isSoft(), cell1.val());
+console.log(cell2.isSoft(), cell2.val());
+
+// Output:
+//
+// false 7
+// true 6
 ````
