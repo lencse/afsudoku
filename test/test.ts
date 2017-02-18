@@ -10,6 +10,12 @@ import { Position, pos } from "../src/Position";
         assert.isDefined(sudoku);
     }
 
+    @test "soft-cell"() {
+        let sudoku = Sudoku.create(1);
+        let cell = sudoku.cell(pos(1, 1));
+        assert.isTrue(cell.isSoft())
+    }
+
     @test "solving"() {
         let sudoku = Sudoku.create(2);
         sudoku.put(pos(1, 2), 2);

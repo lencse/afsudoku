@@ -1,5 +1,6 @@
 import { Position, pos } from "./Position";
 import { ValidationState, startValidationState, ValidatorIterator, RowValidatorIterator, ColumnValidatorIterator, SubgridValidatorIterator } from "./Validation";
+import { Cell, SoftCell } from "./Cell";
 
 export abstract class Sudoku {
 
@@ -23,6 +24,10 @@ export abstract class Sudoku {
 
     public val(position: Position): number {
         return this.cells[this.transformPositionToIndex(position)];
+    }
+
+    public cell(position: Position): Cell {
+        return new SoftCell();
     }
 
     protected transformPositionToIndex(position: Position): number {
