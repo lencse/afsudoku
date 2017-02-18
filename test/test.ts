@@ -25,28 +25,7 @@ import { Position, pos } from "../src/Position";
     }
 
     @test "soft-and-hard-cell-after-solving"() {
-        let sudoku = Sudoku.create(2);
-        sudoku.put(pos(1, 1), 1);
-        sudoku.put(pos(1, 2), 3);
-        sudoku.put(pos(1, 3), 2);
-        sudoku.put(pos(1, 4), 4);
-
-        // sudoku.put(pos(2, 1), 2);
-        // sudoku.put(pos(2, 2), 4);
-        sudoku.put(pos(2, 3), 1);
-        sudoku.put(pos(2, 4), 3);
-
-        sudoku.put(pos(3, 1), 3);
-        sudoku.put(pos(3, 2), 1);
-        // sudoku.put(pos(3, 3), 4);
-        sudoku.put(pos(3, 4), 2);
-
-        sudoku.put(pos(4, 1), 4);
-        sudoku.put(pos(4, 2), 2);
-        // sudoku.put(pos(4, 3), 3);
-        // sudoku.put(pos(4, 4), 1);
-
-        let solved = sudoku.solve();
+        let solved = this.getSolved4x4();
 
         let cell1 = solved.cell(pos(3, 4));
         assert.isFalse(cell1.isSoft());
@@ -96,29 +75,7 @@ import { Position, pos } from "../src/Position";
     }
 
     @test "solve n=2"() {
-        let sudoku = Sudoku.create(2);
-        sudoku.put(pos(1, 1), 1);
-        sudoku.put(pos(1, 2), 3);
-        sudoku.put(pos(1, 3), 2);
-        sudoku.put(pos(1, 4), 4);
-
-        // sudoku.put(pos(2, 1), 2);
-        // sudoku.put(pos(2, 2), 4);
-        sudoku.put(pos(2, 3), 1);
-        sudoku.put(pos(2, 4), 3);
-
-        sudoku.put(pos(3, 1), 3);
-        sudoku.put(pos(3, 2), 1);
-        // sudoku.put(pos(3, 3), 4);
-        sudoku.put(pos(3, 4), 2);
-
-        sudoku.put(pos(4, 1), 4);
-        sudoku.put(pos(4, 2), 2);
-        // sudoku.put(pos(4, 3), 3);
-        // sudoku.put(pos(4, 4), 1);
-
-        let solved = sudoku.solve();
-
+        let solved = this.getSolved4x4();
         assert.equal(2, solved.val(pos(2, 1)));
         assert.equal(4, solved.val(pos(2, 2)));
         assert.equal(4, solved.val(pos(3, 3)));
@@ -248,6 +205,31 @@ import { Position, pos } from "../src/Position";
         let position = pos(1, 2);
         assert.equal(1, position.getRow());
         assert.equal(2, position.getColumn());
+    }
+
+    private getSolved4x4(): Sudoku {
+        let sudoku = Sudoku.create(2);
+        sudoku.put(pos(1, 1), 1);
+        sudoku.put(pos(1, 2), 3);
+        sudoku.put(pos(1, 3), 2);
+        sudoku.put(pos(1, 4), 4);
+
+        // sudoku.put(pos(2, 1), 2);
+        // sudoku.put(pos(2, 2), 4);
+        sudoku.put(pos(2, 3), 1);
+        sudoku.put(pos(2, 4), 3);
+
+        sudoku.put(pos(3, 1), 3);
+        sudoku.put(pos(3, 2), 1);
+        // sudoku.put(pos(3, 3), 4);
+        sudoku.put(pos(3, 4), 2);
+
+        sudoku.put(pos(4, 1), 4);
+        sudoku.put(pos(4, 2), 2);
+        // sudoku.put(pos(4, 3), 3);
+        // sudoku.put(pos(4, 4), 1);
+
+        return sudoku.solve();
     }
 
 }
