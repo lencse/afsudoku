@@ -1,2 +1,3 @@
 export { Sudoku } from "./src/Sudoku";
-export { pos } from "./src/Position";
+export { Cell } from "./src/Cell";
+export { pos, Position } from "./src/Position";
