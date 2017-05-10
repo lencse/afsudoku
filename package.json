@@ -5,12 +5,11 @@
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "scripts": {
-    "typings-install": "./node_modules/.bin/typings install",
     "build": "./node_modules/.bin/tsc -p . --outDir dist/",
     "test": "node_modules/.bin/mocha dist/test/ --timeout 5000",
     "build-test": "npm run build && npm test",
     "postinstall": "",
-    "prepublish": "npm run typings-install && npm run build"
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -31,10 +30,10 @@
   },
   "homepage": "https://github.com/lencse/afsudoku#readme",
   "devDependencies": {
+    "@types/chai": "^3.5.2",
     "chai": "^3.5.0",
-    "mocha": "^3.1.2",
-    "mocha-typescript": "^1.0.11",
-    "typescript": "^2.0.9",
-    "typings": "^2.0.0"
+    "mocha": "^3.3.0",
+    "mocha-typescript": "^1.1.2",
+    "typescript": "^2.3.2"
   }
 }
